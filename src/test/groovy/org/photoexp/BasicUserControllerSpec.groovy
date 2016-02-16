@@ -3,9 +3,9 @@ package org.photoexp
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(ArtistController)
-@Mock(Artist)
-class ArtistControllerSpec extends Specification {
+@TestFor(BasicUserController)
+@Mock(BasicUser)
+class BasicUserControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class ArtistControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.artistList
-            model.artistCount == 0
+            !model.basicUserList
+            model.basicUserCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class ArtistControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.artist!= null
+            model.basicUser!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class ArtistControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def artist = new Artist()
-            artist.validate()
-            controller.save(artist)
+            def basicUser = new BasicUser()
+            basicUser.validate()
+            controller.save(basicUser)
 
         then:"The create view is rendered again with the correct model"
-            model.artist!= null
+            model.basicUser!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            artist = new Artist(params)
+            basicUser = new BasicUser(params)
 
-            controller.save(artist)
+            controller.save(basicUser)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/artist/show/1'
+            response.redirectedUrl == '/basicUser/show/1'
             controller.flash.message != null
-            Artist.count() == 1
+            BasicUser.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class ArtistControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def artist = new Artist(params)
-            controller.show(artist)
+            def basicUser = new BasicUser(params)
+            controller.show(basicUser)
 
         then:"A model is populated containing the domain instance"
-            model.artist == artist
+            model.basicUser == basicUser
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class ArtistControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def artist = new Artist(params)
-            controller.edit(artist)
+            def basicUser = new BasicUser(params)
+            controller.edit(basicUser)
 
         then:"A model is populated containing the domain instance"
-            model.artist == artist
+            model.basicUser == basicUser
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class ArtistControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/artist/index'
+            response.redirectedUrl == '/basicUser/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def artist = new Artist()
-            artist.validate()
-            controller.update(artist)
+            def basicUser = new BasicUser()
+            basicUser.validate()
+            controller.update(basicUser)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.artist == artist
+            model.basicUser == basicUser
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            artist = new Artist(params).save(flush: true)
-            controller.update(artist)
+            basicUser = new BasicUser(params).save(flush: true)
+            controller.update(basicUser)
 
         then:"A redirect is issued to the show action"
-            artist != null
-            response.redirectedUrl == "/artist/show/$artist.id"
+            basicUser != null
+            response.redirectedUrl == "/basicUser/show/$basicUser.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class ArtistControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/artist/index'
+            response.redirectedUrl == '/basicUser/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def artist = new Artist(params).save(flush: true)
+            def basicUser = new BasicUser(params).save(flush: true)
 
         then:"It exists"
-            Artist.count() == 1
+            BasicUser.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(artist)
+            controller.delete(basicUser)
 
         then:"The instance is deleted"
-            Artist.count() == 0
-            response.redirectedUrl == '/artist/index'
+            BasicUser.count() == 0
+            response.redirectedUrl == '/basicUser/index'
             flash.message != null
     }
 }
