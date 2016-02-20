@@ -1,6 +1,7 @@
 package org.photoexp
 
 import grails.test.mixin.*
+import org.photoexp.entity.user.BasicUser
 import spock.lang.*
 
 @TestFor(BasicUserController)

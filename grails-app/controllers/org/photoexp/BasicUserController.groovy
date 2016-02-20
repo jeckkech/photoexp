@@ -1,5 +1,7 @@
 package org.photoexp
 
+import org.photoexp.entity.user.BasicUser
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 

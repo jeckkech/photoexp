@@ -1,4 +1,4 @@
-package org.photoexp
+package org.photoexp.entity.user
 
 class BasicUser {
     String name;
