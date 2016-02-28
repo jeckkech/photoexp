@@ -14,7 +14,7 @@ class DefaultUserController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond SecUser.list(params), model:[defaultUserCount: SecUser.count()]
+        respond DefaultUser.list(params), model:[defaultUserCount: DefaultUser.count()]
     }
 
     def show(DefaultUser defaultUser) {
