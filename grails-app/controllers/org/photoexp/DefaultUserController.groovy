@@ -1,6 +1,5 @@
 package org.photoexp
 
-import org.photoexp.entity.user.BasicUser
 import org.photoexp.entity.user.DefaultUser
 
 import static org.springframework.http.HttpStatus.*
