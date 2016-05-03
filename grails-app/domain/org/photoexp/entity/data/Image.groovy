@@ -5,12 +5,16 @@ import org.photoexp.entity.user.DefaultUser
 class Image {
     static belongsTo = [user: DefaultUser];
 
-    File image;
+    String id;
     String thumbnail; //base64?
     String name;
-    String description;
-    String tags;
 
     static constraints = {
+        id unique: true
+    }
+
+    static mapping = {
+        collection "images"
+        database "mongo"
     }
 }

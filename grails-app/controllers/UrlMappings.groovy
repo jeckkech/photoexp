@@ -7,7 +7,9 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
+        "/"(controller: "basic")
+        "/edit"(controller: "defaultUser", action:'edit')
+        "/register"(controller: "defaultUser", action:'create')
         "500"(view:'/error')
         "404"(view:'/notFound')
         "/login/$action?"(controller: "login")

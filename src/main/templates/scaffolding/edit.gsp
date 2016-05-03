@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html>${entityName}!!!!!!
     <head>
         <meta name="layout" content="main" />
         <g:set var="entityName" value="\${message(code: '${propertyName}.label', default: '${className}')}" />
