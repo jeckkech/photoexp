@@ -70,9 +70,7 @@ class DefaultUserController {
 
     def edit() {
         respond springSecurityService.currentUser
-        //respond defaultUser
     }
-
 
     def addImage() {
         File photo;
