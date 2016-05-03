@@ -21,7 +21,7 @@ class BasicController {
 
 //        MongoClient client = new MongoClient();
 //        DB db = client.getDB("mongo");
-
+//
 //        GridFS gridFSPhoto = new GridFS(db, "photo");
 //        for(Image image : user.getImages()){
 //            System.out.println(image.name);

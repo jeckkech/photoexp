@@ -7,11 +7,7 @@ import com.mongodb.gridfs.GridFSInputFile
 import org.imgscalr.Scalr
 import org.photoexp.entity.data.Image
 import org.photoexp.entity.user.DefaultUser
-import org.springframework.data.mongodb.MongoDbFactory
 import org.springframework.web.multipart.commons.CommonsMultipartResolver
-import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest
-import sun.awt.image.ToolkitImage
-import sun.security.provider.MD5
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
