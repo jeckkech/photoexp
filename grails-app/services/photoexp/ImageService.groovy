@@ -20,9 +20,11 @@ class ImageService {
     }
 
     public static BufferedImage dropAlphaChannel(BufferedImage src) {
-        BufferedImage convertedImg = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
-        convertedImg.getGraphics().drawImage(src, 0, 0, null);
-
+        BufferedImage convertedImg = src;
+        if(src.getColorModel().hasAlpha()){
+            convertedImg = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
+            convertedImg.getGraphics().drawImage(src, 0, 0, null);
+        }
         return convertedImg;
     }
 }
