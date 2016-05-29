@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage
 class ImageService {
     static scope = "singleton"
 
-    public static String getBase64(BufferedImage image) {
+    public String getBase64(BufferedImage image) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1000);
         ImageIO.write(image, "jpg", out);
         out.flush()
@@ -19,7 +19,7 @@ class ImageService {
         return URLEncoder.encode(base64bytes, "ISO-8859-1");
     }
 
-    public static BufferedImage dropAlphaChannel(BufferedImage src) {
+    public BufferedImage dropAlphaChannel(BufferedImage src) {
         BufferedImage convertedImg = src;
         if(src.getColorModel().hasAlpha()){
             convertedImg = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);

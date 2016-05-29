@@ -9,6 +9,10 @@ images:
     <img src="data:image/jpeg;charset=utf-8;base64,${it.thumbnail}"/>
  </g:each>
 
+<g:uploadForm name="myUpload" controller="defaultUser" action="submitImages">
+    <g:submitButton name="uploadFtp" class="save" value="UploadFtp" />
+</g:uploadForm>
+
 <g:uploadForm name="myUpload" controller="defaultUser" action="addImage">
     <fieldset class="form">
         <input type="file" name="file" />

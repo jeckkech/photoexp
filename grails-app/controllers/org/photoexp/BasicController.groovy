@@ -16,6 +16,7 @@ import javax.imageio.ImageIO
 @Transactional
 class BasicController {
     def springSecurityService;
+    def imageService;
 
     def index = {
         def user = springSecurityService.currentUser;
@@ -29,6 +30,7 @@ class BasicController {
             System.out.println(image.name);
             GridFSDBFile imageFile = gridFSPhoto.findOne(image.name);
             System.out.println(ImageIO.read(imageFile.getInputStream()));
+            System.out.println("________________________________________");
         }
 
         return [user: user];

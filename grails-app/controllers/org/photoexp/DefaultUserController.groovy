@@ -8,6 +8,8 @@ import org.imgscalr.Scalr
 import org.photoexp.entity.data.Image
 import org.photoexp.entity.user.DefaultUser
 import org.springframework.web.multipart.commons.CommonsMultipartResolver
+import photoexp.ImageService
+import photoexp.file.FileService
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -19,6 +21,7 @@ import grails.transaction.Transactional
 class DefaultUserController {
     def springSecurityService;
     def imageService;
+    def fileService;
     CommonsMultipartResolver commonsMultipartResolver;
     def scaffold = DefaultUser;
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -70,8 +73,8 @@ class DefaultUserController {
 
     def addImage() {
         File photo;
+        DefaultUser user = springSecurityService.currentUser;
         try {
-            DefaultUser user = springSecurityService.currentUser;
             def file = request.getFile("file");
 
             photo = new File(file.getOriginalFilename());
@@ -81,31 +84,42 @@ class DefaultUserController {
             fos.close();
 
             MongoClient client = new MongoClient();
-            DB db = client.getDB("mongo");
+            DB db = client.getDB("mongo")
 
-            GridFS gfsPhoto = new GridFS(db, "photo");
+            GridFS gfsPhoto = new GridFS(db, "photo")
 
-            System.out.println(ImageIO.read(photo).getColorModel().hasAlpha());
-            BufferedImage thumbnail = Scalr.resize(imageService.dropAlphaChannel(ImageIO.read(photo)), 50, 50)
+            System.out.println(ImageIO.read(photo).getColorModel().hasAlpha())
 
-            String gfsFileName = "${file.name}${Math.random() * 10000 * new Date().hashCode()}";
-            GridFSInputFile gfsFile = gfsPhoto.createFile(photo);
-            gfsFile.setFilename(gfsFileName);
-            gfsFile.save();
-
-            Image image = new Image(id: gfsFile.getId().toString(), name: gfsFileName, thumbnail: imageService.getBase64(thumbnail));
-            image.setUser(user);
-
-            if (image.validate()) {
-                image.insert(failOnError: false);
+            BufferedImage thumbnail
+            if(ImageIO.read(photo).getColorModel().hasAlpha()){
+                thumbnail = Scalr.resize(imageService.dropAlphaChannel(ImageIO.read(photo)), 50, 50)
+            } else {
+                thumbnail = Scalr.resize(ImageIO.read(photo), 50, 50)
             }
 
-            user.addToImages(image);
+            String gfsFileName = "${file.name}${Math.random() * 10000 * new Date().hashCode()}"
+            GridFSInputFile gfsFile = gfsPhoto.createFile(photo)
+            gfsFile.setFilename(gfsFileName)
+            gfsFile.save()
+
+            Image image = new Image(id: gfsFile.getId().toString(), name: gfsFileName, thumbnail: imageService.getBase64(thumbnail))
+            image.setUser(user)
+
+            if (image.validate()) {
+                image.insert(failOnError: false)
+            }
+
+            user.addToImages(image)
             user.save flush: true
         } finally {
             photo?.delete();
         }
-        return "Kinda saved";
+        return "Image saved"
+    }
+
+    def submitImages(){
+        fileService.getImagesAndSubmit(springSecurityService.currentUser);
+        redirect action: 'index', controller: 'basic';
     }
 
     @Transactional
