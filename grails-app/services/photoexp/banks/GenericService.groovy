@@ -12,5 +12,5 @@ import java.util.List;
 public interface GenericService {
     GrailsApplication grailsApplication;
 
-    public void uploadPictures(Map<String, InputStream> images, DefaultUser user);
+    public void uploadPictures(Map<String, InputStream> images);
 }

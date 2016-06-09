@@ -23,13 +23,13 @@ public class DepositphotosService implements GenericService {
 
 
     @Override
-    public void uploadPictures(Map<String, InputStream> images, DefaultUser user) {
+    public void uploadPictures(Map<String, InputStream> images) {
         String status
 
             images.keySet().each {
                 def image = images.get(it)
                 def imageName = it
-                def success = false
+                def code = 0
 
                 new FTPClient().with {
                    connect "127.0.0.1"
@@ -40,12 +40,14 @@ public class DepositphotosService implements GenericService {
 //                    changeWorkingDirectory "/"
                     storeFile (imageName+".jpg", image)
                     status = replyString
+                    code = replyCode
                     disconnect()
                 }
-
-                Image currentImage = Image.findByName(imageName)
-                currentImage.setUploaded(true)
-                currentImage.save(flush:true)
+               if(code == 226){
+                    Image currentImage = Image.findByName(imageName)
+                    currentImage.setUploaded(true)
+                    currentImage.save(flush:true)
+               }
 
             }
 

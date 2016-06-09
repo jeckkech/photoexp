@@ -32,6 +32,6 @@ class FileService {
                 streamList.put(it.name, file.getInputStream())
             }
         }
-        new DepositphotosService().uploadPictures(streamList, user)
+        new DepositphotosService().uploadPictures(streamList)
     }
 }

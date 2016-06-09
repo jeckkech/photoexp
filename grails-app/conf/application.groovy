@@ -1,13 +1,8 @@
-//ftp.shutterstock{
-//	host = "ftp.shutterstock.com"
-//	username = "fangorndt"
-//	password = "dimon4ikdt2014"
-//}
-//ftp.istock{
-//	host = ""
-//	username = ""
-//	password = ""
-//}
+shuttershit{}
+
+
+
+
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.photoexp.SecUser'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.photoexp.SecUserSecRole'
