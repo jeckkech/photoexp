@@ -1,6 +1,8 @@
 package photoexp
 
+import com.mongodb.DB
 import grails.transaction.Transactional
+import org.grails.datastore.mapping.mongo.config.MongoCollection
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -22,9 +24,16 @@ class ImageService {
     public BufferedImage dropAlphaChannel(BufferedImage src) {
         BufferedImage convertedImg = src;
         if(src.getColorModel().hasAlpha()){
-            convertedImg = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
-            convertedImg.getGraphics().drawImage(src, 0, 0, null);
+            convertedImg = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB)
+            convertedImg.getGraphics().drawImage(src, 0, 0, null)
         }
-        return convertedImg;
+        return convertedImg
     }
+
+//    public setImagesUploaded(List<String> imgNameList){
+//        DB db = client.getDB("mongo")
+//        MongoCollection imageCollection = db.getCollection("images")
+//
+//        imageCollection.find(imgNameList)
+//    }
 }

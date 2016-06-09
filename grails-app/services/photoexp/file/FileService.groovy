@@ -19,18 +19,19 @@ class FileService {
     }
 
     public void getImagesAndSubmit(DefaultUser user){
-        System.out.println("_______________________________________");
-
         MongoClient client = new MongoClient()
         DB db = client.getDB("mongo")
         Map<String, InputStream> streamList = new HashMap<>()
 
         user.getImages().each{
-            System.out.println(it.getName())
-            GridFS gfsPhoto = new GridFS(db, "photo")
-            GridFSDBFile file = gfsPhoto.findOne(it.name)
-            streamList.put(it.name, file.getInputStream())
+
+            if(!it.isUploaded()){
+                System.out.println(it.getName())
+                GridFS gfsPhoto = new GridFS(db, "photo")
+                GridFSDBFile file = gfsPhoto.findOne(it.name)
+                streamList.put(it.name, file.getInputStream())
+            }
         }
-        new DepositphotosService().uploadPictures(streamList)
+        new DepositphotosService().uploadPictures(streamList, user)
     }
 }

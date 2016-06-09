@@ -6,7 +6,7 @@ availableRevenue: ${user.availableRevenue}
 images:
 
  <g:each in="${user.images}">
-    <img src="data:image/jpeg;charset=utf-8;base64,${it.thumbnail}"/>
+    <div style="display:inline"><img src="data:image/jpeg;charset=utf-8;base64,${it.thumbnail}"/> <span>${it.name}</span></div>
  </g:each>
 
 <g:uploadForm name="myUpload" controller="defaultUser" action="submitImages">

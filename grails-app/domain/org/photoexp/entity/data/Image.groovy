@@ -8,13 +8,16 @@ class Image {
     String id;
     String thumbnail; //base64?
     String name;
+    boolean uploaded;
 
     static constraints = {
         id unique: true
+        uploaded nullable: true
     }
 
     static mapping = {
         collection "images"
         database "mongo"
+        uploaded defaultValue: false
     }
 }

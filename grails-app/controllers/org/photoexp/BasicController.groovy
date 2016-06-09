@@ -21,17 +21,17 @@ class BasicController {
     def index = {
         def user = springSecurityService.currentUser;
 
-
-        MongoClient client = new MongoClient();
-        DB db = client.getDB("mongo");
-
-        GridFS gridFSPhoto = new GridFS(db, "photo");
-        for(Image image : user.getImages()){
-            System.out.println(image.name);
-            GridFSDBFile imageFile = gridFSPhoto.findOne(image.name);
-            System.out.println(ImageIO.read(imageFile.getInputStream()));
-            System.out.println("________________________________________");
-        }
+//        MongoClient client = new MongoClient();
+//        DB db = client.getDB("mongo");
+//
+//        GridFS gridFSPhoto = new GridFS(db, "photo");
+//        for(Image image : user.getImages()){
+//            System.out.println(image.name);
+//
+//            GridFSDBFile imageFile = gridFSPhoto.findOne(image.name);
+//            System.out.println(ImageIO.read(imageFile.getInputStream()));
+//            System.out.println("________________________________________");
+//        }
 
         return [user: user];
     }

@@ -1,6 +1,7 @@
 package photoexp.banks
 
-import grails.core.GrailsApplication;
+import grails.core.GrailsApplication
+import org.photoexp.entity.user.DefaultUser;
 
 import java.io.InputStream;
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
 public interface GenericService {
     GrailsApplication grailsApplication;
 
-    public void uploadPictures(Map<String, InputStream> images);
+    public void uploadPictures(Map<String, InputStream> images, DefaultUser user);
 }
