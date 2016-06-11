@@ -15,12 +15,15 @@ import javax.imageio.ImageIO
 
 @Transactional
 class BasicController {
-    def springSecurityService;
-    def imageService;
+    def springSecurityService
+    def shutterstockStatusService
+    def imageService
 
     def index = {
-        def user = springSecurityService.currentUser;
+        def user = springSecurityService.currentUser
 
+        System.out.println(shutterstockStatusService.searchImages())
+        System.out.println("_________________")
 //        MongoClient client = new MongoClient();
 //        DB db = client.getDB("mongo");
 //
@@ -33,7 +36,7 @@ class BasicController {
 //            System.out.println("________________________________________");
 //        }
 
-        return [user: user];
+        return [user: user]
     }
 
 

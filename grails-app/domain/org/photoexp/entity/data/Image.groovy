@@ -8,7 +8,10 @@ class Image {
     String id;
     String thumbnail; //base64?
     String name;
+    String shutterstockId;
     boolean uploaded;
+    boolean uploadedShutterstock;
+
 
     static constraints = {
         id unique: true
